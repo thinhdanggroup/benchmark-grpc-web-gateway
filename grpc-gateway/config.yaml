@@ -1,0 +1,12 @@
+backend: localhost:6790
+cors:
+  allow-origin: "*"
+  allow-credentials:
+  allow-methods: "POST, GET, OPTIONS, PUT, DELETE"
+  allow-headers: "Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization"
+proxy:
+  port: 80
+  api-prefix: "/"
+swagger:
+  file: "ping.swagger.json"
+
