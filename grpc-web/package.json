@@ -1,0 +1,23 @@
+{
+  "name": "gprc-web",
+  "version": "1.0.0",
+  "description": "",
+  "main": "client.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@grpc/proto-loader": "^0.3.0",
+    "async": "^1.5.2",
+    "google-protobuf": "^3.6.1",
+    "grpc": "^1.15.0",
+    "grpc-web": "^1.0.0",
+    "lodash": "^4.6.1",
+    "webpack": "^4.16.5",
+    "webpack-cli": "^3.1.0"
+  }
+}
+
+protoc -I=proto ping.proto --js_out=import_style=commonjs:grpc-web --grpc-web_out=import_style=commonjs,mode=grpcwebtext:gprc-web
