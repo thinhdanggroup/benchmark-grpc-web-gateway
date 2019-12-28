@@ -1,4 +1,4 @@
-backend: localhost:6790
+backend: server:6790
 cors:
   allow-origin: "*"
   allow-credentials:
@@ -9,4 +9,3 @@ proxy:
   api-prefix: "/"
 swagger:
   file: "ping.swagger.json"
-
