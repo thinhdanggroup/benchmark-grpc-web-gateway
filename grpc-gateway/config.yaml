@@ -1,4 +1,4 @@
-backend: server:6790
+backend: bench-server:6790
 cors:
   allow-origin: "*"
   allow-credentials:
