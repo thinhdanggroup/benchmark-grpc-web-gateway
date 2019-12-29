@@ -13,7 +13,8 @@ import (
 func main() {
 	request := &pkg.PingRequest{}
 
-	conn, err := grpc.Dial("localhost:6790", grpc.WithInsecure())
+	target := "bench-server:6790"
+	conn, err := grpc.Dial(target, grpc.WithInsecure())
 
 	if err != nil {
 		log.Fatal("error request", err)
@@ -24,7 +25,9 @@ func main() {
 	server := pkg.NewCoreServiceClient(conn)
 	lock := &sync.WaitGroup{}
 
-	for i := 0; i < 10000; i++ {
+	total := int64(50000)
+
+	for i := int64(0); i < total; i++ {
 		lock.Add(1)
 
 		go func() {
@@ -42,9 +45,12 @@ func main() {
 
 	lock.Wait()
 
-	fmt.Print(makeTimestamp() - start)
+	execTime := (makeTimestamp() - start)
+	fmt.Println("Benchmark result for ", total, " request in ", execTime," microsecond")
+	fmt.Println("Throughtput :", total * 1000000/ execTime, "req/s" )
+	fmt.Println("Latency :", execTime / total, "microsecond")  
 }
 
 func makeTimestamp() int64 {
-	return time.Now().UnixNano() / int64(time.Millisecond)
+	return time.Now().UnixNano() / 1000
 }
