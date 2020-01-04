@@ -21,6 +21,23 @@ Flow definition:
   - `mode=grpcwebtext`: Payload are base64-encoded.
   - `mode=grpcweb`: Payload are in the binary protobuf format.
 
+## Run test
+
+Steps:
+
+  1. Start backend and gateways:
+  
+      ```sh
+      docker-compose -f docker-compose-backend.yaml up
+      ```
+  1. Wait services is started successfully
+  1. Configure test time by edit *BENCHMARK_TIME* in `docker-compose-client.yaml`.
+  1. Start client
+  
+      ```sh
+      docker-compose -f docker-compose-client.yaml up
+      ```
+  
 ## Results
 
 ![result](./images/result.png)
