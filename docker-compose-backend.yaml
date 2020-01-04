@@ -1,0 +1,36 @@
+version: '3'
+services:
+  backend:
+    build:
+      context: ./spring_grpc_http
+    ports:
+      - 6789:6789
+      - 6790:6790
+    image: bench-server
+    container_name: bench-server
+    networks: 
+      - benchmark 
+  envoy:
+    build:
+      context: ./envoy
+    ports:
+      - 8080:8080
+    image: bench-envoy
+    container_name: bench-envoy
+    depends_on: 
+      - backend
+    networks: 
+      - benchmark
+  grpc-gateway:
+    build:
+      context: ./grpc-gateway
+    ports:
+      - 80:80
+    image: bench-grpc-gateway
+    container_name: bench-grpc-gateway
+    depends_on: 
+      - backend
+    networks: 
+      - benchmark
+networks:
+  benchmark:

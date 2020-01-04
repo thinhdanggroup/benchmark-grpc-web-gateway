@@ -6,17 +6,13 @@ const {CoreServiceClient: CoreServiceClient} = require('./ping_grpc_web_pb.js');
 const {CoreServiceClient: CoreServiceClientBinary} = require('./ping_grpc_web_pb.js');
 
 var benchmark = new Benchmarkify("Benchmark: gRPC-Web vs grpc-gateway vs spring-http-base-grpc").printHeader();
-var bench = benchmark.createSuite("Call HTTP", {time: 30000});
-global.XMLHttpRequest = require('xhr2');
-var agent = new KeepAliveAgent({maxSockets: 1});
 
-var options = {
-    agent: agent,
-    headers: {"Connection": "Keep-Alive"}
-};
+// config
 
-request.defaults(options);
-
+var benchmarkTime = 30000
+if (process.env.BENCHMARK_TIME) {
+  benchmarkTime = process.env.BENCHMARK_TIME;
+}
 
 // var target = {
 //     backend: 'http://localhost:6789/api/ping',
@@ -26,9 +22,26 @@ request.defaults(options);
 
 var target = {
   backend: 'http://bench-server:6789/api/ping',
-  gateway: 'http://bench-gateway:80/ping/123',
+  gateway: 'http://grpc-gateway:80/ping/123',
   envoy: 'http://bench-envoy:8080',
 };
+
+console.log("Run test with time= " + benchmarkTime + " ms")
+
+// init benchmark service
+var bench = benchmark.createSuite("Call HTTP", {time: benchmarkTime});
+
+
+// set xhr2 to nodeJs can call gRPC-Web
+global.XMLHttpRequest = require('xhr2');
+var agent = new KeepAliveAgent({maxSockets: 1});
+
+var options = {
+    agent: agent,
+    headers: {"Connection": "Keep-Alive"}
+};
+
+request.defaults(options);
 
 var clientText = new CoreServiceClient(target.envoy, null, null);
 var clientBinary = new CoreServiceClientBinary(target.envoy, null, null);
