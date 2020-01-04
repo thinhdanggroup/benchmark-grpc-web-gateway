@@ -26,7 +26,7 @@ var target = {
   envoy: 'http://bench-envoy:8080',
 };
 
-console.log("Run test with time= " + benchmarkTime + " ms")
+console.log("Run test with time: " + benchmarkTime + " ms")
 
 // init benchmark service
 var bench = benchmark.createSuite("Call HTTP", {time: benchmarkTime});
