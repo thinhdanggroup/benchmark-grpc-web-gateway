@@ -16,8 +16,16 @@ Deployment model:
 Flow definition:
 
 - Direct request: call direct HTTP request to backend. Review spring-grpc-http to know more about this back. Result in this test will be seen like a baseline.
-- Using gRPC-Web: 
+- Using grpc-gateway: call backend by using grpc-gateway.
+- Using gRPC-Web: using gRPC-Web to call to backend. There are two options:
+  - `mode=grpcwebtext`: Payload are base64-encoded.
+  - `mode=grpcweb`: Payload are in the binary protobuf format.
 
 ## Results
 
+![result](./images/result.png)
 
+As you see:
+- Performance of gRPC-Web with text format and  direct calling HTTP is nearly equal.
+- grpc-gateway is more slower
+- gRPC-Web with binary format is the fastest.
