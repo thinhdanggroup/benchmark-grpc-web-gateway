@@ -45,4 +45,8 @@ Steps:
 As you see:
 - Performance of gRPC-Web with text format and  direct calling HTTP is nearly equal.
 - grpc-gateway is more slower
-- gRPC-Web with binary format is the fastest.
+- **gRPC-Web with binary format is the fastest**.
+
+## References
+
+More detail in [medium](https://medium.com/@thinhda/compare-grpc-web-with-grpc-gateway-fa1e2acdf29f?source=activity---post_recommended)
